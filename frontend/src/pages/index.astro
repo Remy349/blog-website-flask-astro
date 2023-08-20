@@ -1,15 +1,16 @@
 ---
+import Base from "../layouts/Base.astro";
+
+const title = "BlogWebsite - Home";
+
+const response = await fetch("http://127.0.0.1:5000/api/posts", {
+  method: "GET",
+});
+
+const data = await response.json();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title={title}>
+  <h1>Home Page</h1>
+  {data.length === 0 ? <h2>Empty</h2> : { data }}
+</Base>
