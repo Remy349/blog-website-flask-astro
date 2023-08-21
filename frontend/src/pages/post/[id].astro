@@ -1,0 +1,53 @@
+---
+import Base from "../../layouts/Base.astro";
+import PostCard from "../../components/PostCard.astro";
+
+export async function getStaticPaths() {
+  const response = await fetch("http://127.0.0.1:5000/api/posts", {
+    method: "GET",
+  });
+
+  const data = await response.json();
+
+  return data.map(({ id, title, content, created_at }) => {
+    return {
+      params: { id },
+      props: { title, content, created_at, data },
+    };
+  });
+}
+
+const { id } = Astro.params;
+const { title, content, created_at, data } = Astro.props;
+---
+
+<Base title={title}>
+  <section class="text-left">
+    <h2 class="font-bold text-3xl mb-4 text-slate-200">{title}</h2>
+    <span class="italic text-sm font-medium text-emerald-500">
+      Created: {created_at}
+    </span>
+    <div class="mt-16 font-medium text-xl text-slate-200">
+      {content}
+    </div>
+  </section>
+  <section class="mt-20">
+    <h2 class="font-bold text-2xl mb-8 text-slate-200">
+      Read any publication of your interest!
+    </h2>
+    <div class="grid grid-cols-3 gap-6">
+      {
+        data
+          .filter((post: any) => post.id != id)
+          .map((post: any) => (
+            <a href={`/post/${post.id}`}>
+              <PostCard
+                postTitle={post.title}
+                postCreatedAt={post.created_at}
+              />
+            </a>
+          ))
+      }
+    </div>
+  </section>
+</Base>

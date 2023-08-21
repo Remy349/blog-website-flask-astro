@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
 
-const title = "BlogWebsite - Home";
+const title = "Home";
 
 const response = await fetch("http://127.0.0.1:5000/api/posts", {
   method: "GET",
@@ -22,8 +22,8 @@ const data = await response.json();
         <p>Empty</p>
       ) : (
         <div class="grid gap-y-6">
-          {data.map((post) => (
-            <a href="#">
+          {data.map((post: any) => (
+            <a href={`/post/${post.id}`}>
               <PostCard
                 postTitle={post.title}
                 postCreatedAt={post.created_at}
