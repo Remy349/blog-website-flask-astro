@@ -1,20 +1,15 @@
 ---
+import NavLink from "./NavLink.astro";
 ---
 
-<header class="fixed left-0 top-0 w-full">
+<header class="fixed left-0 top-0 w-full z-50 backdrop-blur-md">
   <nav class="flex h-16 justify-between max-w-4xl mx-auto items-center">
-    <a href="/">BlogWebsite</a>
+    <a href="/" class="font-bold text-2xl text-emerald-500">BlogWebsite</a>
     <div>
-      <ul class="flex gap-x-6">
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/signup">Sign Up</a>
-        </li>
-        <li>
-          <a href="/signin">Sign In</a>
-        </li>
+      <ul class="flex">
+        <NavLink url="/" page="Home" />
+        <NavLink url="/signup" page="Sign Up" />
+        <NavLink url="/signin" page="Sign In" />
       </ul>
     </div>
   </nav>

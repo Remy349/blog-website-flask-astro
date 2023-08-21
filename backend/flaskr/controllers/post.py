@@ -7,7 +7,7 @@ from flaskr.models import PostModel
 
 class PostController:
     def get_posts(self):
-        return db.session.execute(db.select(PostModel)).all()
+        return db.session.execute(db.select(PostModel)).scalars().all()
 
     def get_post(self, post_id):
         return db.get_or_404(PostModel, post_id)
