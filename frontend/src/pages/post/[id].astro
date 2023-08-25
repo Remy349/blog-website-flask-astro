@@ -2,23 +2,19 @@
 import Base from "../../layouts/Base.astro";
 import PostCard from "../../components/PostCard.astro";
 
-export async function getStaticPaths() {
-  const response = await fetch("http://127.0.0.1:5000/api/posts", {
-    method: "GET",
-  });
-
-  const data = await response.json();
-
-  return data.map(({ id, title, content, created_at }) => {
-    return {
-      params: { id },
-      props: { title, content, created_at, data },
-    };
-  });
-}
-
 const { id } = Astro.params;
-const { title, content, created_at, data } = Astro.props;
+
+const postsResponse = await fetch("http://127.0.0.1:5000/api/posts", {
+  method: "GET",
+});
+
+const postResponse = await fetch(`http://127.0.0.1:5000/api/posts/${id}`, {
+  method: "GET",
+});
+
+const posts = await postsResponse.json();
+
+const { title, content, created_at } = await postResponse.json();
 ---
 
 <Base title={title}>
@@ -37,7 +33,7 @@ const { title, content, created_at, data } = Astro.props;
     </h2>
     <div class="grid grid-cols-3 gap-6">
       {
-        data
+        posts
           .filter((post: any) => post.id != id)
           .map((post: any) => (
             <a href={`/post/${post.id}`}>

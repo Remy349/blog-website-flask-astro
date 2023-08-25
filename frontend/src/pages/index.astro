@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
 
-const title = "Home";
+const pageTitle = "Home";
 
 const response = await fetch("http://127.0.0.1:5000/api/posts", {
   method: "GET",
@@ -11,7 +11,7 @@ const response = await fetch("http://127.0.0.1:5000/api/posts", {
 const data = await response.json();
 ---
 
-<Base title={title}>
+<Base title={pageTitle}>
   <section>
     <h2 class="mb-10 text-center font-bold text-3xl mx-28 text-slate-200">
       Welcome to <span class="text-emerald-500">BlogWebsite</span>, the place
