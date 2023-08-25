@@ -1,42 +1,17 @@
 ---
 import Base from "../layouts/Base.astro";
+import SignUpForm from "../components/SignUpForm.jsx";
 
 const pageTitle = "Sign Up";
-
-export const prerender = true;
 ---
 
 <Base title={pageTitle}>
   <section>
     <h2 class="mb-10 text-center font-bold text-3xl mx-28 text-slate-200">
-      Create your <span class="text-emerald-500">account</span> and share your thoughts
+      Create your <span class="text-emerald-500">account</span> and share your thoughts.
     </h2>
     <div class="flex justify-center">
-      <form method="POST" class="grid w-[500px] gap-y-6">
-        <div>
-          <input
-            class="w-full py-3 pl-6 rounded-lg font-semibold text-lg outline-none text-slate-800"
-            type="text"
-            placeholder="Username"
-            autocomplete="off"
-            name="username"
-          />
-        </div>
-        <div>
-          <input
-            class="w-full py-3 pl-6 rounded-lg font-semibold text-lg outline-none text-slate-800"
-            type="password"
-            placeholder="Password"
-            autocomplete="off"
-            name="password"
-          />
-        </div>
-        <button
-          type="submit"
-          class="bg-emerald-500 text-slate-800 rounded-lg py-3 font-semibold text-lg hover:bg-emerald-600"
-          >Sign Up</button
-        >
-      </form>
+      <SignUpForm client:load />
     </div>
   </section>
 </Base>

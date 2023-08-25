@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
 
-const pageTitle = "Home";
+const pageTitle = "All posts";
 
 const postsResponse = await fetch("http://127.0.0.1:5000/api/posts", {
   method: "GET",
@@ -13,17 +13,13 @@ const posts = await postsResponse.json();
 
 <Base title={pageTitle}>
   <section>
-    <h2 class="mb-10 text-center font-bold text-3xl mx-28 text-slate-200">
-      Welcome to <span class="text-emerald-500">BlogWebsite</span>, the place
-      where you can read and write blogs of your interest.
-    </h2>
     {
       posts.length === 0 ? (
         <p>Empty</p>
       ) : (
         <>
-          <div class="grid gap-y-6 mb-10">
-            {posts.slice(0, 6).map((post: any) => (
+          <div class="grid grid-cols-3 gap-6 mb-10">
+            {posts.map((post: any) => (
               <a href={`/post/${post.id}`}>
                 <PostCard
                   postTitle={post.title}
@@ -31,14 +27,6 @@ const posts = await postsResponse.json();
                 />
               </a>
             ))}
-          </div>
-          <div class="grid place-content-center">
-            <a
-              href="/posts"
-              class="text-xl font-medium text-slate-200 underline hover:text-emerald-500"
-            >
-              See all posts
-            </a>
           </div>
         </>
       )
