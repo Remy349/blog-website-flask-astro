@@ -5,6 +5,9 @@ from flaskr.models import UserModel
 
 
 class UserController:
+    def get_users(self):
+        return db.session.execute(db.select(UserModel)).scalars()
+
     def create_user(self, user_data):
         if db.session.execute(
             db.select(UserModel).filter_by(username=user_data["username"])
@@ -18,3 +21,11 @@ class UserController:
         db.session.commit()
 
         return {"message": "User created successfully."}
+
+    def delete_user(self, user_id):
+        user = db.get_or_404(UserModel, user_id)
+
+        db.session.delete(user)
+        db.session.commit()
+
+        return {"message": "User deleted."}
