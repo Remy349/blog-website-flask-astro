@@ -2,13 +2,15 @@
 import Base from "../../layouts/Base.astro";
 import PostCard from "../../components/PostCard.astro";
 
+const API_URL = import.meta.env.API_URL;
+
 const { id } = Astro.params;
 
-const postsResponse = await fetch("http://127.0.0.1:5000/api/posts", {
+const postsResponse = await fetch(`${API_URL}/posts`, {
   method: "GET",
 });
 
-const postResponse = await fetch(`http://127.0.0.1:5000/api/posts/${id}`, {
+const postResponse = await fetch(`${API_URL}/posts/${id}`, {
   method: "GET",
 });
 

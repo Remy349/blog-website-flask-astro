@@ -2,6 +2,36 @@
 import Base from "../layouts/Base.astro";
 
 const pageTitle = "Sign In";
+
+const API_URL = import.meta.env.API_URL;
+
+let errorResponse = "";
+
+if (Astro.request.method === "POST") {
+  const signInData = await Astro.request.formData();
+  const username = signInData.get("username");
+  const password = signInData.get("password");
+
+  const response = await fetch(`${API_URL}/auth/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (response.ok) {
+    const dataResponse = await response.json();
+
+    Astro.cookies.set("token", dataResponse.access_token);
+
+    return Astro.redirect("/profile");
+  } else {
+    const dataResponse = await response.json();
+
+    errorResponse += dataResponse.message;
+  }
+}
 ---
 
 <Base title={pageTitle}>
@@ -18,6 +48,7 @@ const pageTitle = "Sign In";
             type="text"
             placeholder="Username"
             autocomplete="off"
+            name="username"
             required
           />
         </div>
@@ -27,6 +58,7 @@ const pageTitle = "Sign In";
             type="password"
             placeholder="Password"
             autocomplete="off"
+            name="password"
             required
           />
         </div>
@@ -36,6 +68,13 @@ const pageTitle = "Sign In";
         >
           Sign In
         </button>
+        {
+          errorResponse && (
+            <p class="text-center text-red-500 text-xl font-medium">
+              {errorResponse}
+            </p>
+          )
+        }
       </form>
     </div>
   </section>

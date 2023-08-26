@@ -4,7 +4,9 @@ import PostCard from "../components/PostCard.astro";
 
 const pageTitle = "Home";
 
-const postsResponse = await fetch("http://127.0.0.1:5000/api/posts", {
+const API_URL = import.meta.env.API_URL;
+
+const postsResponse = await fetch(`${API_URL}/posts`, {
   method: "GET",
 });
 
