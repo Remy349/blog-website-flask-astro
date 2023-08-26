@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -13,6 +14,7 @@ class Config(object):
     API_TITLE = "Blog REST API"
     API_VERSION = "v1"
     OPENAPI_VERSION = "3.0.3"
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=1)
 
 
 class DevelopmentConfig(Config):

@@ -9,7 +9,7 @@ function SignUpForm() {
     const username = signUpData.get("username");
     const password = signUpData.get("password");
 
-    const response = await fetch("http://127.0.0.1:5000/api/auth/signup", {
+    const response = await fetch("http://127.0.0.1:5000/api/users", {
       headers: {
         "Content-Type": "application/json",
       },

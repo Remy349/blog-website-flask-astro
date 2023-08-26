@@ -29,7 +29,9 @@ typing-extensions = "==4.7.1"
 webargs = "==8.3.0"
 werkzeug = "==2.3.7"
 flask-cors = "==4.0.0"
+flask-jwt-extended = "==4.5.2"
 apispec = {version = "==6.3.0", extras = ["marshmallow"]}
+pyjwt = "==2.8.0"
 
 [dev-packages]
 

@@ -8,15 +8,6 @@ bp = Blueprint("users", __name__, description="Operations on users")
 controller = UserController()
 
 
-@bp.route("/auth/signup")
-class UserSignUp(MethodView):
-    @bp.arguments(UserSchema)
-    @bp.response(201)
-    def post(self, user_data):
-        """Create a new user"""
-        return controller.create_user(user_data)
-
-
 @bp.route("/users/<int:user_id>")
 class User(MethodView):
     @bp.response(204)
@@ -31,3 +22,9 @@ class UserList(MethodView):
     def get(self):
         """Get a list of all users (Developer only)"""
         return controller.get_users()
+
+    @bp.arguments(UserSchema)
+    @bp.response(201)
+    def post(self, user_data):
+        """Create a new user"""
+        return controller.create_user(user_data)
