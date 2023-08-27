@@ -1,3 +1,4 @@
+from flask_jwt_extended import jwt_required
 from flask_smorest import Blueprint
 from flask.views import MethodView
 from flaskr.controllers import PostController
@@ -34,6 +35,7 @@ class PostList(MethodView):
         """Get a list of all posts"""
         return controller.get_posts()
 
+    @jwt_required()
     @bp.arguments(PostSchema)
     @bp.response(201, PostSchema)
     def post(self, post_data):

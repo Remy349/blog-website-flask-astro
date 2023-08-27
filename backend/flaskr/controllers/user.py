@@ -8,6 +8,9 @@ class UserController:
     def get_users(self):
         return db.session.execute(db.select(UserModel)).scalars()
 
+    def get_user(self, user_id):
+        return db.get_or_404(UserModel, user_id)
+
     def create_user(self, user_data):
         if db.session.execute(
             db.select(UserModel).filter_by(username=user_data["username"])

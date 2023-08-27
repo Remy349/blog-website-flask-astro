@@ -16,12 +16,15 @@ const postResponse = await fetch(`${API_URL}/posts/${id}`, {
 
 const posts = await postsResponse.json();
 
-const { title, content, created_at } = await postResponse.json();
+const { title, content, created_at, user } = await postResponse.json();
 ---
 
 <Base title={title}>
   <section class="text-left">
-    <h2 class="font-bold text-3xl mb-4 text-slate-200">{title}</h2>
+    <h2 class="font-bold text-3xl mb-2 text-slate-200">{title}</h2>
+    <p class="mb-4 text-slate-200 text-base font-light">
+      Author: {user.username}
+    </p>
     <span class="italic text-sm font-medium text-emerald-500">
       Created: {created_at}
     </span>
@@ -42,6 +45,7 @@ const { title, content, created_at } = await postResponse.json();
               <PostCard
                 postTitle={post.title}
                 postCreatedAt={post.created_at}
+                author={post.user.username}
               />
             </a>
           ))

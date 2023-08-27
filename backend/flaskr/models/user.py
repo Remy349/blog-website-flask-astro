@@ -10,6 +10,13 @@ class UserModel(db.Model):
     username = sa.Column(sa.String(80), nullable=False, unique=True)
     password = sa.Column(sa.String(180), nullable=False)
 
+    posts = db.relationship(
+        "PostModel",
+        back_populates="user",
+        lazy="dynamic",
+        cascade="all, delete",
+    )
+
     def check_password(self, password):
         return check_password_hash(self.password, password)
 

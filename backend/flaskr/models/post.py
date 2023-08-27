@@ -10,3 +10,7 @@ class PostModel(db.Model):
     title = sa.Column(sa.String(200), nullable=False, unique=False)
     content = sa.Column(sa.Text, nullable=False, unique=False)
     created_at = sa.Column(sa.DateTime, default=datetime.utcnow)
+
+    user_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"), nullable=False)
+
+    user = db.relationship("UserModel", back_populates="posts")

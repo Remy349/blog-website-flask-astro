@@ -60,7 +60,7 @@ function SignUpForm() {
       </div>
       <button
         type="submit"
-        class="bg-emerald-500 text-slate-800 rounded-lg py-3 font-semibold text-lg hover:bg-emerald-600"
+        class="bg-emerald-500 text-slate-800 rounded-lg py-3 font-semibold text-lg shadow-lg"
       >
         Sign Up
       </button>

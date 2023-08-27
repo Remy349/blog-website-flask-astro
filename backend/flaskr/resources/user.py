@@ -10,6 +10,11 @@ controller = UserController()
 
 @bp.route("/users/<int:user_id>")
 class User(MethodView):
+    @bp.response(200, UserSchema)
+    def get(self, user_id):
+        """Get a single user by ID (Developer only)"""
+        return controller.get_user(user_id)
+
     @bp.response(204)
     def delete(self, user_id):
         """Delete a user by ID (Developer only)"""

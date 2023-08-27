@@ -3,6 +3,7 @@ from flask_smorest import abort
 from sqlalchemy.exc import SQLAlchemyError
 
 from flaskr.models import PostModel
+from flaskr.models.user import UserModel
 
 
 class PostController:
@@ -13,10 +14,15 @@ class PostController:
         return db.get_or_404(PostModel, post_id)
 
     def create_post(self, post_data):
-        post = PostModel(**post_data)
+        user = db.get_or_404(UserModel, post_data["user_id"])
+
+        post = PostModel(
+            title=post_data["title"],
+            content=post_data["content"],
+        )
 
         try:
-            db.session.add(post)
+            user.posts.append(post)
             db.session.commit()
         except SQLAlchemyError as e:
             abort(500, message=str(e))

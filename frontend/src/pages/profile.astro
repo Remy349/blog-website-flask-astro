@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import PostCard from "../components/PostCard.astro";
 
 const pageTitle = "Profile";
 
@@ -11,16 +12,17 @@ if (!token) {
   return Astro.redirect("/signin");
 }
 
-const response = await fetch(`${API_URL}/auth/profile`, {
+const responseProfile = await fetch(`${API_URL}/auth/profile`, {
   headers: {
     Authorization: `Bearer ${token}`,
   },
   method: "GET",
 });
 
-const dataResponse = await response.json();
+const profile = await responseProfile.json();
+const { posts } = profile;
 
-if (!response.ok) {
+if (!responseProfile.ok) {
   Astro.cookies.delete("token");
   return Astro.redirect("/signin");
 }
@@ -28,9 +30,41 @@ if (!response.ok) {
 
 <Base title={pageTitle}>
   <section>
-    <h2 class="text-center font-bold text-3xl mx-28 text-slate-200">
-      Welcome Back. <span class="text-emerald-500"
-        >{dataResponse.username}!</span>
+    <h2 class="text-center font-bold text-3xl mb-4 mx-28 text-slate-200">
+      Welcome Back. <span class="text-emerald-500">{profile.username}!</span>
     </h2>
+    <p class="text-center mb-6 text-slate-200 font-medium text-2xl italic">
+      List of <span class="text-emerald-500">all</span> your posts.
+    </p>
+    <div class="grid place-content-center mb-10">
+      <a
+        class="bg-emerald-500 text-slate-800 font-semibold text-base rounded-lg px-6 py-3 shadow-lg"
+        href="/new-post"
+      >
+        Write a new post
+      </a>
+    </div>
+    {
+      posts.length === 0 ? (
+        <h2 class="text-center text-slate-200 text-2xl font-semibold">
+          There are currently no <span class="text-emerald-500">posts</span>{" "}
+          created : (
+        </h2>
+      ) : (
+        <>
+          <div class="grid grid-cols-3 gap-6 mb-10">
+            {posts.map((post: any) => (
+              <a href={`/post/${post.id}`}>
+                <PostCard
+                  postTitle={post.title}
+                  postCreatedAt={post.created_at}
+                  author={profile.username}
+                />
+              </a>
+            ))}
+          </div>
+        </>
+      )
+    }
   </section>
 </Base>
