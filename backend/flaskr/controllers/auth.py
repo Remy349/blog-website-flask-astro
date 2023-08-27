@@ -1,6 +1,6 @@
-from flask_jwt_extended import create_access_token, get_jwt_identity
 from flask_smorest import abort
 from flaskr.extensions import db
+from flask_jwt_extended import create_access_token, get_jwt_identity
 
 from flaskr.models.user import UserModel
 

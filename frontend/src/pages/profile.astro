@@ -1,11 +1,36 @@
 ---
 import Base from "../layouts/Base.astro";
 
-const pageTitle = "Profile"
+const pageTitle = "Profile";
+
+const API_URL = import.meta.env.API_URL;
+
+const token = Astro.cookies.get("token").value;
+
+if (!token) {
+  return Astro.redirect("/signin");
+}
+
+const response = await fetch(`${API_URL}/auth/profile`, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+  method: "GET",
+});
+
+const dataResponse = await response.json();
+
+if (!response.ok) {
+  Astro.cookies.delete("token");
+  return Astro.redirect("/signin");
+}
 ---
 
 <Base title={pageTitle}>
   <section>
-    <h2>User Profile Here!</h2>
+    <h2 class="text-center font-bold text-3xl mx-28 text-slate-200">
+      Welcome Back. <span class="text-emerald-500"
+        >{dataResponse.username}!</span>
+    </h2>
   </section>
 </Base>

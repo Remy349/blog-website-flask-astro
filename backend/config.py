@@ -14,7 +14,7 @@ class Config(object):
     API_TITLE = "Blog REST API"
     API_VERSION = "v1"
     OPENAPI_VERSION = "3.0.3"
-    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=1)
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=5)
 
 
 class DevelopmentConfig(Config):

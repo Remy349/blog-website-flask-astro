@@ -1,5 +1,7 @@
 ---
 import NavLink from "./NavLink.astro";
+
+const token = Astro.cookies.get("token").value;
 ---
 
 <header class="fixed left-0 top-0 w-full z-50 backdrop-blur-md">
@@ -9,8 +11,16 @@ import NavLink from "./NavLink.astro";
       <ul class="flex">
         <NavLink url="/" page="Home" />
         <NavLink url="/posts" page="Posts" />
-        <NavLink url="/signup" page="Sign Up" />
-        <NavLink url="/signin" page="Sign In" />
+        {
+          !token ? (
+            <>
+              <NavLink url="/signup" page="Sign Up" />
+              <NavLink url="/signin" page="Sign In" />
+            </>
+          ) : (
+            <NavLink url="/profile" page="Profile" />
+          )
+        }
       </ul>
     </div>
   </nav>

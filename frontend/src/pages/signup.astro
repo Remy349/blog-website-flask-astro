@@ -3,6 +3,10 @@ import Base from "../layouts/Base.astro";
 import SignUpForm from "../components/SignUpForm.jsx";
 
 const pageTitle = "Sign Up";
+
+if (Astro.cookies.get("token").value) {
+  return Astro.redirect("/profile");
+}
 ---
 
 <Base title={pageTitle}>

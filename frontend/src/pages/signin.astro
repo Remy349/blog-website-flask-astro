@@ -5,6 +5,10 @@ const pageTitle = "Sign In";
 
 const API_URL = import.meta.env.API_URL;
 
+if (Astro.cookies.get("token").value) {
+  return Astro.redirect("/profile");
+}
+
 let errorResponse = "";
 
 if (Astro.request.method === "POST") {
