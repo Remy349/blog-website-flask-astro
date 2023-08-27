@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
+import PostDeleteBtn from "../components/PostDeleteBtn.jsx";
 
 const pageTitle = "Profile";
 
@@ -54,13 +55,18 @@ if (!responseProfile.ok) {
         <>
           <div class="grid grid-cols-3 gap-6 mb-10">
             {posts.map((post: any) => (
-              <a href={`/post/${post.id}`}>
-                <PostCard
-                  postTitle={post.title}
-                  postCreatedAt={post.created_at}
-                  author={profile.username}
-                />
-              </a>
+              <div>
+                <a href={`/post/${post.id}`}>
+                  <PostCard
+                    postTitle={post.title}
+                    postCreatedAt={post.created_at}
+                    author={profile.username}
+                  />
+                </a>
+                <div class="mt-4">
+                  <PostDeleteBtn client:load postId={post.id} />
+                </div>
+              </div>
             ))}
           </div>
         </>

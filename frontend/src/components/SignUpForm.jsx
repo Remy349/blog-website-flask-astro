@@ -35,10 +35,10 @@ function SignUpForm() {
   };
 
   return (
-    <form onSubmit={handleOnSubmit} class="grid w-[500px] gap-y-6">
+    <form onSubmit={handleOnSubmit} className="grid w-[500px] gap-y-6">
       <div>
         <input
-          class="w-full py-3 pl-6 rounded-lg font-semibold text-lg outline-none text-slate-800"
+          className="w-full py-3 pl-6 rounded-lg font-semibold text-lg outline-none text-slate-800"
           type="text"
           placeholder="Username"
           autocomplete="off"
@@ -49,7 +49,7 @@ function SignUpForm() {
       </div>
       <div>
         <input
-          class="w-full py-3 pl-6 rounded-lg font-semibold text-lg outline-none text-slate-800"
+          className="w-full py-3 pl-6 rounded-lg font-semibold text-lg outline-none text-slate-800"
           type="password"
           placeholder="Password"
           autocomplete="off"
@@ -60,13 +60,13 @@ function SignUpForm() {
       </div>
       <button
         type="submit"
-        class="bg-emerald-500 text-slate-800 rounded-lg py-3 font-semibold text-lg shadow-lg"
+        className="bg-emerald-500 text-slate-800 rounded-lg py-3 font-semibold text-lg shadow-lg"
       >
         Sign Up
       </button>
       {responseMessage && (
         <p
-          class={`text-center text-xl font-medium ${
+          className={`text-center text-xl font-medium ${
             responseError ? "text-red-500" : "text-emerald-500"
           }`}
         >
