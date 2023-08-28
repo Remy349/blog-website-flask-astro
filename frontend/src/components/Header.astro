@@ -19,6 +19,7 @@ const token = Astro.cookies.get("token").value;
             </>
           ) : (
             <NavLink url="/profile" page="Profile" />
+            <NavLink url="/logout" page="Logout" />
           )
         }
       </ul>

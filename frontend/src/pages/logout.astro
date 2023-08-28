@@ -1,0 +1,6 @@
+---
+if (Astro.request.method === "GET") {
+  Astro.cookies.delete("token");
+  return Astro.redirect("/signin");
+}
+---
